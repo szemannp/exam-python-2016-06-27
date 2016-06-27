@@ -51,7 +51,7 @@ class Rocket(object):
         self.number_of_launches = number_of_launches
 
     def launch(self):
-        if self.type == falcon1:
+        if self.type == 'falcon1':
             self.fuel -= 1
         else:
             self.fuel -= 9
@@ -67,7 +67,7 @@ class Rocket(object):
             self.fuel = 20
 
     def getStats(self):
-        print('name: ', self.type, ', fuel: ', str(self.fuel))
+        print('name:', self.type, 'fuel:', str(self.fuel))
 
 class SpaceX(Rocket):
 
@@ -95,7 +95,7 @@ class SpaceX(Rocket):
         self.launches = 0
         for rocket in self.rockets:
             self.launches += rocket.number_of_launches
-        print('rockets: ', len(self.rockets), ', fuel: ', str(self.stored_fuel), ', launches: ', str(self.launches))
+        print('rockets:', len(self.rockets), 'fuel:', str(self.stored_fuel), 'launches:', str(self.launches))
 
 space_x = SpaceX(100)
 falcon1 = Rocket('falcon1', 0, 0)
