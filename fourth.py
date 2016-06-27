@@ -43,6 +43,60 @@
 # The following code should work with the classes
 
 
+class Rocket(object):
+
+    def __init__(self, rocket_type, starting_fuel, number_of_launches):
+        self.type = rocket_type
+        self.fuel = starting_fuel
+        self.number_of_launches = number_of_launches
+
+    def launch(self):
+        if self.type == falcon1:
+            self.fuel -= 1
+        else:
+            self.fuel -= 9
+        self.number_of_launches += 1
+
+    def refill(self):
+        self.used_fuel = 0
+        if self.type == 'falcon1':
+            self.used_fuel = 5 - self.fuel
+            self.fuel = 5
+        else:
+            self.used_fuel = 20 - self.fuel
+            self.fuel = 20
+
+    def getStats(self):
+        print('name: ', self.type, ', fuel: ', str(self.fuel))
+
+class SpaceX(Rocket):
+
+    def __init__(self, stored_fuel):
+        self.stored_fuel = stored_fuel
+        self.rockets = []
+
+    def addRocket(self, rocket):
+        self.rockets.append(rocket)
+
+    def refill_all(self):
+        for rocket in self.rockets:
+            rocket.refill()
+            self.stored_fuel -= rocket.used_fuel
+
+    def launch_all(self):
+        for rocket in self.rockets:
+            rocket.launch()
+        self.launches += len(self.rockets)
+
+    def buy_fuel(self, amount):
+        self.stored_fuel += amount
+
+    def getStats(self):
+        self.launches = 0
+        for rocket in self.rockets:
+            self.launches += rocket.number_of_launches
+        print('rockets: ', len(self.rockets), ', fuel: ', str(self.stored_fuel), ', launches: ', str(self.launches))
+
 space_x = SpaceX(100)
 falcon1 = Rocket('falcon1', 0, 0)
 falcon9 = Rocket('falcon9', 0, 0)
